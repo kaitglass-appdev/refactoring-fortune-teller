@@ -1,8 +1,18 @@
 class AllfortunesController < ApplicationController
   def horoscopes
+    #@zodiac_sign = params.fetch("the_sign")
+    @zodiac_sign = params.fetch("the_sign")
+    name_of_sign = @zodiac_sign.to_sym
+    
+    
+
+  
     all_zodiacs = Zodiac.list
-    this_zodiac = all_zodiacs.fetch(:aries)
-    @horoscope = this_zodiac.fetch(:horoscope)
+
+    @horoscope = all_zodiacs.fetch(name_of_sign)
+    @fortune = @horoscope.fetch(:horoscope)
+    
+   
     
     @array_of_numbers = Array.new
 
@@ -14,3 +24,4 @@ class AllfortunesController < ApplicationController
 
     render({ :template => "general_horoscope_templates/signs.html.erb" })
   end
+end
